@@ -232,10 +232,10 @@ def auth_enforced_via_enforcement_detectors(self, filters, requestResponse, andO
             statusCode = filter[20:]
             filterMatched = inverse ^ isStatusCodesReturned(self, requestResponse, statusCode)
 
-        elif filter.startswith("Headers (simple string): "):
+        elif filter.startswith("Response Headers (simple string): "):
             filterMatched = inverse ^ (filter[25:] in self._helpers.bytesToString(requestResponse.getResponse()[0:analyzedResponse.getBodyOffset()]))
 
-        elif filter.startswith("Headers (regex): "):
+        elif filter.startswith("Response Headers (regex): "):
             regex_string = filter[17:]
             p = re.compile(regex_string, re.IGNORECASE)
             filterMatched = inverse ^ bool(p.search(self._helpers.bytesToString(requestResponse.getResponse()[0:analyzedResponse.getBodyOffset()])))
